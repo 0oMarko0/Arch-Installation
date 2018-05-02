@@ -92,7 +92,7 @@ You can do this before connecting to a network. This section doesn't require any
 
 1. First let's see our current partition
 
-   ````lsblk```
+   ```lsblki -f```
 
    >List information about all available or the specified block devices.
 
@@ -207,6 +207,50 @@ You can do this before connecting to a network. This section doesn't require any
    Enter new partition name:
 
    ```home```
+
+9. Finaly to make our change we need to write it to the disk: 
+
+   ```[ WRITE ]```
+
+#### Mounting a file system
+
+
+1. Unmount all mounted file system. 
+ 
+   ```findmnt /dev/sda```
+
+   > To list all mounted file systems (https://wiki.archlinux.org/index.php/File_systems#List_mounted_file_systems)
+
+   ```unmount </dev/sdX>```
+
+2. Mount file system to the boot partition. According to the Arch wiki, the boot partion must be mount with a FAT32 file system in order to work.
+
+   ```# mkfs.fat -F32 /dev/sd1```
+
+3. Make the swape
+
+   ```mkswape /dev/sda2```
+
+   > Set up a Linux swap area on a device or in a file (man page)
+
+   ```swapon /dev/sda2```
+
+   > Swapon is used to specify devices on which paging and swapping are to take place (man page)
+ 
+
+4. Mount our file system for the root. 
+
+   ```mkfs.ext4 /dev/sda3```
+
+5. Mounting our file system for the hoom
+
+   ```mkfs.ext4 /dev/sda4```
+
+
+
+
+
+	   
 
 ---
 References
