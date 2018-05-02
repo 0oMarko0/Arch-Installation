@@ -223,11 +223,11 @@ You can do this before connecting to a network. This section doesn't require any
 
    ```unmount </dev/sdX>```
 
-2. Mount file system to the boot partition. According to the Arch wiki, the boot partion must be mount with a FAT32 file system in order to work.
+2. Making our file system to the boot partition. According to the Arch wiki, the boot partion must be mount with a FAT32 file system in order to work.
 
    ```# mkfs.fat -F32 /dev/sd1```
 
-3. Make the swape
+3. Making the swape
 
    ```mkswape /dev/sda2```
 
@@ -238,17 +238,30 @@ You can do this before connecting to a network. This section doesn't require any
    > Swapon is used to specify devices on which paging and swapping are to take place (man page)
  
 
-4. Mount our file system for the root. 
+4. Making our file system for the root. 
 
    ```mkfs.ext4 /dev/sda3```
 
-5. Mounting our file system for the hoom
+5. making our file system for the hoom
 
    ```mkfs.ext4 /dev/sda4```
 
+6. Finaly mount our file system
 
 
+   ```mount /dev/sda3 /mnt```
 
+
+   ```mkdir /mnt/boot```
+
+
+   ```mkdir /mnt/home```
+
+
+   ```mount /dev/sda4 /mnt/boot``` 
+
+
+   ```mount /dev/sda4 /mnt/boot``` 
 
 	   
 
