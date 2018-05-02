@@ -286,7 +286,7 @@ In this section we are going to install the [base package](https://www.archlinux
 
    >The fstab file can be used to define how disk partitions, various other block devices, or remote filesystems should be mounted into the filesystem.(https://wiki.archlinux.org/index.php/Fstab)
    
-   ```nano /mnt/etc/fstab```
+   ```nano /mnt/etc/fstab```
    
    >Make sure that the line of the ext4 partition ends with a “2”, the swap partition’s line ends with a “0”, and the 
  boot partition’s line ends with a “1”. This configures the partition checking on boot.(https://medium.com/@philpl/arch-linux-running-on-my-macbook-2ea525ebefe3?token=Sa7zbfKtIQl2yvlJ)
@@ -297,21 +297,21 @@ In this section we are going to install the [base package](https://www.archlinux
 
 3. Setting the time zone
 
-   * we need to maque a symlink 
+   we need to maque a symlink 
 
-      ```ln -sf /usr/share/zoneinfo/<Region>/<City> /etc/localtime```
+   ```ln -sf /usr/share/zoneinfo/<Region>/<City> /etc/localtime```   
+   
+   ```hwclock --systohc```
 
-      ```hwclock --systohc```
-
-      > Administration tool for the hardware clock
+   > Administration tool for the hardware clock
 
 4. Setting localization
    
-   * We need to uncomment our locale in /etc/locale.gen
+   We need to uncomment our locale in /etc/locale.gen
 
-   * Generate the localization
+   Generate the localization
       
-      ```locale-gen```
+   ```locale-gen```
 
 5. Set the host name
 
@@ -322,11 +322,11 @@ In this section we are going to install the [base package](https://www.archlinux
    Add the entries to /etc/hosts
    
    
-```
-127.0.0.1	localhost
-::1		localhost
-127.0.1.1	<hostname>.localdomain	<hostname>
-```
+   ```
+   127.0.0.1	   localhost
+   ::1		   localhost
+   127.0.1.1	   <hostname>.localdomain   <hostname>
+   ```
 
 6. Set the root password
 
@@ -344,8 +344,9 @@ systemd-boot, previously called gummiboot, is a simple UEFI boot manager which e
 1. Install the bootloader to our boot partition
 
    ```bootctl --path=/boot install```
-   
-   > The above command will copy the systemd-boot binary to /boot/EFI/BOOT/BOOTX64.EFI and add systemd-boot itself as the default EFI application (default boot entry) loaded by the EFI Boot Manager.(https://wiki.archlinux.org/index.php/mac#Setup_bootloader)
+
+
+   >the above command will copy the systemd-boot binary to /boot/EFI/BOOT/BOOTX64.EFI and add systemd-boot itself as the default EFI application (default boot entry) loaded by the EFI Boot Manager.(https://wiki.archlinux.org/index.php/mac#Setup_bootloader)
    
 2. Install the Microcode for intel (intel-ucode)
 
@@ -355,27 +356,27 @@ systemd-boot, previously called gummiboot, is a simple UEFI boot manager which e
    
 3. Create the Arch Linux boot entry
 
-   ```nano /boot/loader/entries/arch.conf```
+      ```nano /boot/loader/entries/arch.conf```
    
    Enter the configuration taking from the Arch linux (https://wiki.archlinux.org/index.php/Systemd-boot)
    
-```
-title   Arch Linux
-linux   /vmlinuz-linux
-initrd  /intel-ucode.img
-initrd  /initramfs-linux.img
-options root=LABEL=arch_os rw
-``` 
+   ```
+   title   Arch Linux
+   linux   /vmlinuz-linux
+   initrd  /intel-ucode.img
+   initrd  /initramfs-linux.img
+   options root=LABEL=arch_os rw
+   ``` 
 
 4. Configure systemd-boot to boot our config
 
-   ```echo "default arch" > /boot/loader/loader.conf```
+      ```echo "default arch" > /boot/loader/loader.conf```
    
 5. Finaly reboot our system
 
-   ``èxit```
+      ```exit```
    
-   ```reboot```
+      ```reboot```
    
    
 
