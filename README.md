@@ -1,14 +1,29 @@
-##Table of contents
+## Table of contents
 
-[I'm a relative reference to a repository file](/TEST.md)
+[1. Create the bootable usb](#Create-the-Bootable-usb)
 
+
+
+[2. Connect to a wifi](/NETWORK.md)
+
+[3. Partition the disk](/PARTITION.md)
+
+[4. Mount a file system](FILE-SYSTEM.md)
+
+[5. Arch Installation](INSTALL.md)
+
+[6. Configure the system](CONFIGURE.md)
+
+[7. Boot loader](BOOT-LOADER.md)
+
+<a name="abcd"></a> where you want to link to and refer to it on the same page by [link text](#abcd)
 
 
 ## Summary
 
 This week my goal was to install Arch on my old 2012 macbook air. I decide to make a guide to help me really understand what i was doing.
 
-#### Create the Bootable usb stick
+# Create the Bootable usb 
 The first step was obviously to create a bootables usb key.
 
 1. Download the ISO of Arch. Multiple download link, depending on your country can be found [here](https://www.archlinux.org/download/)
