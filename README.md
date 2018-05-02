@@ -8,11 +8,11 @@
 
 [4. Mount a file system](mounting-a-file-system)
 
-[5. Arch Installation](INSTALL.md)
+[5. Arch Installation](installation)
 
-[6. Configure the system](CONFIGURE.md)
+[6. Configure the system](configure-the-system)
 
-[7. Boot loader](BOOT-LOADER.md)
+[7. Boot loader](boot-loader)
 
 ## Summary
 
@@ -270,7 +270,7 @@ You can do this before connecting to a network. This section doesn't require any
    mount /dev/sda4 /mnt/home
    ```
 	   
-#### Installation
+### Installation
 
 In this section we are going to install the [base package](https://www.archlinux.org/groups/x86_64/base/)
 
@@ -278,7 +278,7 @@ In this section we are going to install the [base package](https://www.archlinux
 
    ```pacstrap /mnt base```
 
-#### Configure the system  
+### Configure the system  
 
 1. We need to generate the fstab
 
@@ -288,7 +288,8 @@ In this section we are going to install the [base package](https://www.archlinux
    
    ```nano /mnt/etc/fstab```
    
-   > Make sure that the line of the ext4 partition ends with a “2”, the swap partition’s line ends with a “0”, and the boot partition’s line ends with a “1”. This configures the partition checking on boot.(https://medium.com/@philpl/arch-linux-running-on-my-macbook-2ea525ebefe3?token=Sa7zbfKtIQl2yvlJ)
+   >Make sure that the line of the ext4 partition ends with a “2”, the swap partition’s line ends with a “0”, and the 
+ boot partition’s line ends with a “1”. This configures the partition checking on boot.(https://medium.com/@philpl/arch-linux-running-on-my-macbook-2ea525ebefe3?token=Sa7zbfKtIQl2yvlJ)
 
 2. We need to change root into the new system
 
@@ -332,7 +333,7 @@ In this section we are going to install the [base package](https://www.archlinux
    ```passwd```
    
 
-#### Boot loader
+### Boot loader
 
 A boot loader is the first program that runs when a computer start. It is responsible for selecting, loading and transferring control to an operatinf system kernel. After that the kernel initializes the rest of the operating system.(https://wiki.archlinux.org/index.php/GRUB)
 
