@@ -6,7 +6,7 @@
 
 [3. Partition the disk](#partition)
 
-[4. Mount a file system](FILE-SYSTEM.md)
+[4. Mount a file system](mounting-a-file-system)
 
 [5. Arch Installation](INSTALL.md)
 
@@ -223,8 +223,7 @@ You can do this before connecting to a network. This section doesn't require any
 
    ```[ WRITE ]```
 
-#### Mounting a file system
-
+### Mounting a file system
 
 1. Unmount all mounted file system. 
  
@@ -259,21 +258,17 @@ You can do this before connecting to a network. This section doesn't require any
 
 6. Finaly mount our file system
 
-
-   ```mount /dev/sda3 /mnt```
-
-
-   ```mkdir /mnt/boot```
-
-
-   ```mkdir /mnt/home```
-
-
-   ```mount /dev/sda4 /mnt/boot``` 
-
-
-   ```mount /dev/sda4 /mnt/home``` 
-
+   ```
+   mount /dev/sd3 /mnt
+   
+   mkdir /mnt/boot
+   
+   mount /dev/sda1 /mnt/boot
+   
+   mkdir /mnt/home
+   
+   mount /dev/sda4 /mnt/home
+   ```
 	   
 #### Installation
 
