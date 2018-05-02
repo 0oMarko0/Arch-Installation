@@ -146,8 +146,67 @@ You can do this before connecting to a network. This section doesn't require any
 6. Create a swap partition. 
 
    > Swap space in Linux is used when the amount of physical memory (RAM) is full. If the system needs more memory resources and the RAM is full, inactive pages in memory are moved to the swap spac .<sup>[6](#ft6)</sup>
+ 
+    
+   ```[ NEW ]```
+   
+   First sector ... 
 
+   ```[ ENTER ]``` 
 
+   Size Sector: For the swape we are gonna use 8Gib.  
+   
+
+   ```8Gib [ ENTER ]```
+
+   Selection the type of partition.For the swap the code is It's possible to list all code by pressing L
+
+   ```8200```
+
+   Enter new partition name:
+
+   ```swap```
+
+7. Creating root partition
+   
+   ```[ NEW ]```
+   
+   First sector ... 
+
+   ```[ ENTER ]``` 
+
+   Size Sector:  i've chose 15Gib.
+   
+
+   ```15Gib [ ENTER ]```
+
+   Selection the type of partition.For the swap the code is It's possible to list all code by pressing L
+
+   ```8300```
+
+   Enter new partition name:
+
+   ```root```
+
+8. Creating our home partition
+
+   
+   ```[ NEW ]```
+   
+   First sector ... 
+
+   ```[ ENTER ]``` 
+
+   Size Sector:The remaining space 
+   
+
+   Selection the type of partition.For the swap the code is It's possible to list all code by pressing L
+
+   ```8300```
+
+   Enter new partition name:
+
+   ```home```
 
 ---
 References
