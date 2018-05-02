@@ -103,7 +103,7 @@ This section is required for further manipulation. It explain how to connect to 
 
 
 
-#### Partition
+### Partition
 You can do this before connecting to a network. This section doesn't require any internet.
 
 1. First let's see our current partition
@@ -120,38 +120,42 @@ You can do this before connecting to a network. This section doesn't require any
    
    ```gdisk /dev/sda```
 
-   We need to be in expert mode
+   > GPT fdisk (aka gdisk) is a text-mode menu-driven program for creation and 
+   manipulation of partition tables. It will automatically convert an old-style 
+   Master Boot Record (MBR) partition table or BSD disklabel stored without an 
+   MBR carrier partition to the newer Globally Unique Identifier (GUID) Partition 
+   Table (GPT) format, or will load a GUID partition table. When used with the -l
+    command-line option, the program displays the current partition table 
+    and then exits. (https://linux.die.net/man/8/gdisk)
 
-   ```> x ```
+   We need to be in expert mode with x
 
-   ```> z ```
-   
+    ```
+    x
+    z
+    ```
+
    We use the commande zap to: 'zap (destroy) GPT data structures and exit'
    After it's done we it enter for the next two question.
 
-3. Let's create our partition
+3. Let's create our partition with cgdisk, the graphical version of gdisk
 
    ```cgdisk /dev/sda```
-
-   >Upon start, cgdisk attempts to identify the partition type in use on the disk. If it finds valid GPT data, cgdisk will use it. If cgdisk finds a valid MBR or BSD disklabel but no GPT data, it will attempt to convert the MBR or disklabel into GPT form. (BSD disklabels are likely to have unusable first and/or final partitions because they overlap with the GPT data structures, though.) Upon exiting with the 'w' option, cgdisk replaces the MBR or disklabel with a GPT. This action is potentially dangerous! Your system may become unbootable, and partition type codes may become corrupted if the disk uses unrecognized type codes. Boot problems are particularly likely if you're multi-booting with any GPT-unaware OS. If you mistakenly launch cgdisk on an MBR disk, you can safely exit the program without making any changes by using the Quit option.<sup>[4](#ft4)</sup>
-
 
 4. Presse any key to continue 
 
 5. create a boot partition
- 
-   ```[ NEW ]```
-   
-   First sector ... 
 
-   ```[ ENTER ]``` 
-
-   Size Sector: The Arch linux installation recommende 550Mbi for the boot partition
+    Select [ NEW ]
+    
+    For the first sector press Enter
    
+    Size Sector: The Arch linux installation guide suggest 550Mbi for the boot partition
 
    ```550Mib [ ENTER ]```
 
-   Selection the type of partition. For the boot we want EFI System. It's possible to list all code by pressing L
+    Selection the type of partition. For the boot we want EFI System. It's possible to 
+    list all code by pressing L. Why want EFI system.
 
    ```EF00```
 
@@ -161,42 +165,37 @@ You can do this before connecting to a network. This section doesn't require any
 
 6. Create a swap partition. 
 
-   > Swap space in Linux is used when the amount of physical memory (RAM) is full. If the system needs more memory resources and the RAM is full, inactive pages in memory are moved to the swap spac .<sup>[6](#ft6)</sup>
- 
-    
-   ```[ NEW ]```
+   > Swap space in Linux is used when the amount of physical memory (RAM) is full. If the system needs 
+   more memory resources and the RAM is full, inactive pages in memory are moved to the swap spac .<sup>[6](#ft6)</sup>
+  
+    Select [ NEW ]
    
-   First sector ... 
+   For the first sector press Enter 
 
-   ```[ ENTER ]``` 
-
-   Size Sector: For the swape we are gonna use 8Gib.  
-   
+   Size Sector: For the swap we are gonna use 6Gib. For the swap pace i've found a table
+   [on the ubuntu community](https://help.ubuntu.com/community/SwapFaq)
 
    ```8Gib [ ENTER ]```
 
-   Selection the type of partition.For the swap the code is It's possible to list all code by pressing L
+   Selection the type of partition
 
    ```8200```
 
-   Enter new partition name:
+   Enter new partition name
 
    ```swap```
 
 7. Creating root partition
    
-   ```[ NEW ]```
+    Select [ NEW ]
    
-   First sector ... 
+    For the first sector press Enter
 
-   ```[ ENTER ]``` 
-
-   Size Sector:  i've chose 15Gib.
-   
+    Size Sector: i've chose 15Gib.
 
    ```15Gib [ ENTER ]```
 
-   Selection the type of partition.For the swap the code is It's possible to list all code by pressing L
+   Selection the type of partition.For file system the code is 8300
 
    ```8300```
 
@@ -205,18 +204,14 @@ You can do this before connecting to a network. This section doesn't require any
    ```root```
 
 8. Creating our home partition
-
    
-   ```[ NEW ]```
+    Select [ NEW ]
    
-   First sector ... 
+    For the first sector press Enter
 
-   ```[ ENTER ]``` 
+    Size Sector:The remaining space 
 
-   Size Sector:The remaining space 
-   
-
-   Selection the type of partition.For the swap the code is It's possible to list all code by pressing L
+    Selection the type of partition. For file system the code is 8300
 
    ```8300```
 
