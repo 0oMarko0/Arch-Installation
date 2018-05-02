@@ -270,7 +270,44 @@ In this section we are going to install the [base package](https://www.archlinux
 
 1. Run the Arch installation script 
 
-   ```pacstrap /mnt base``` 
+   ```pacstrap /mnt base```
+
+#### Configure the system  
+
+1. We need to generate the fstab
+
+   ```genfstab -U /mnt >> /mnt/etc/sftab```
+
+   >The fstab file can be used to define how disk partitions, various other block devices, or remote filesystems should be mounted into the filesystem.(https://wiki.archlinux.org/index.php/Fstab)
+
+2. We need to change root into the new system
+
+   ```arch-chroot /mnt```
+
+3. Setting the time zone
+
+   * we need to maque a symlink 
+
+      ```ln -sf /usr/share/zoneinfo/<Region>/<City> /ect/localtime```
+
+      ```hwclock --systohc```
+
+      > Administration tool for the hardware clock
+
+4. Setting localization
+   
+   * We need to uncomment our locale in /etc/locale.gen
+
+   * Generate the localization
+      
+      ```locale-gen```
+
+   * Set the lang
+
+#### Boot loader
+
+A boot loader is the first program that runs when a computer start. It is responsible for selecting, loading and transferring control to an operatinf system kernel. After that the kernel initializes the rest of the operating system.(https://wiki.archlinux.org/index.php/GRUB)
+
 ---
 References
 
