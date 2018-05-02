@@ -45,7 +45,7 @@ The first step is to create a bootables usb key.
 
 
 ### Networking
-The first thing you see when you boot is a console, and the first thing that came to my mind was that i need to be connected to internet. So in order to do so i've follow those step from the [wiki](https://wiki.archlinux.org/index.php/Wireless_network_configuration). Here's the summary
+This section is required for further manipulation. It explain how to connect to a wifi.
 
 1. We must check if we have a drive for our network card. It is possible to list all PCI buses and device with
 
@@ -69,7 +69,8 @@ The first thing you see when you boot is a console, and the first thing that cam
 
     ```ip link show wlp2s0b1```
 
-    you should see something like that < XXX, XXX, UP > make sure the UP is there if not, that mean your interface isn't up
+    you should see something like that < XXX, XXX, UP > make sure the UP is there if not, that means your interface 
+    isn't up
 
 5. Now with our interface up it's possible to scan access point
 
