@@ -63,7 +63,7 @@ The first thing you see when you boot is a console, and the first thing that cam
 
 6. Next we are gonna use wpa_supplicant to connect to our Wifi
 
-    ```wpa_supplicant -B -i wpl2s0b1i -c<(wpa_passphrase "MYSSID" "passphrase")```
+    ```wpa_supplicant -B -i wpl2s0b1 -c<(wpa_passphrase "MYSSID" "passphrase")```
 
     if that work correctly you should see a 'Successfully initialized wpa_supplicant'
 
@@ -79,7 +79,7 @@ The first thing you see when you boot is a console, and the first thing that cam
 
     ```dhcpcd wlp2s0b1```
 
-    >dhcpcd runs on your machine and silently configures your computer to work on the attached networks without trouble and mostly without configuration.<sup>[5](#ft5)</sup>
+    >dhcpcd runs on your machine and silently configures your computer to work on the attached networks without trouble and mostly without configuration.
 
 8. Testing our brand new connection, let's ping google
 
@@ -133,7 +133,7 @@ You can do this before connecting to a network. This section doesn't require any
    Size Sector: The Arch linux installation recommende 550Mbi for the boot partition
    
 
-   ```550Mbi [ ENTER ]```
+   ```550Mib [ ENTER ]```
 
    Selection the type of partition. For the boot we want EFI System. It's possible to list all code by pressing L
 
@@ -225,11 +225,11 @@ You can do this before connecting to a network. This section doesn't require any
 
 2. Making our file system to the boot partition. According to the Arch wiki, the boot partion must be mount with a FAT32 file system in order to work.
 
-   ```# mkfs.fat -F32 /dev/sd1```
+   ```# mkfs.vfat -F32 /dev/sd1```
 
 3. Making the swape
 
-   ```mkswape /dev/sda2```
+   ```mkswap /dev/sda2```
 
    > Set up a Linux swap area on a device or in a file (man page)
 
@@ -261,7 +261,7 @@ You can do this before connecting to a network. This section doesn't require any
    ```mount /dev/sda4 /mnt/boot``` 
 
 
-   ```mount /dev/sda4 /mnt/boot``` 
+   ```mount /dev/sda4 /mnt/home``` 
 
 	   
 #### Installation
@@ -279,6 +279,10 @@ In this section we are going to install the [base package](https://www.archlinux
    ```genfstab -U /mnt >> /mnt/etc/sftab```
 
    >The fstab file can be used to define how disk partitions, various other block devices, or remote filesystems should be mounted into the filesystem.(https://wiki.archlinux.org/index.php/Fstab)
+   
+   ```nano /mnt/etc/fstab```
+   
+   > Make sure that the line of the ext4 partition ends with a “2”, the swap partition’s line ends with a “0”, and the boot partition’s line ends with a “1”. This configures the partition checking on boot.(https://medium.com/@philpl/arch-linux-running-on-my-macbook-2ea525ebefe3?token=Sa7zbfKtIQl2yvlJ)
 
 2. We need to change root into the new system
 
@@ -288,7 +292,7 @@ In this section we are going to install the [base package](https://www.archlinux
 
    * we need to maque a symlink 
 
-      ```ln -sf /usr/share/zoneinfo/<Region>/<City> /ect/localtime```
+      ```ln -sf /usr/share/zoneinfo/<Region>/<City> /etc/localtime```
 
       ```hwclock --systohc```
 
@@ -302,11 +306,71 @@ In this section we are going to install the [base package](https://www.archlinux
       
       ```locale-gen```
 
-   * Set the lang
+5. Set the host name
+
+
+   ```echo <hostname> > /etc/hostname```
+   
+   
+   Add the entries to /etc/hosts
+   
+   
+```
+127.0.0.1	localhost
+::1		localhost
+127.0.1.1	<hostname>.localdomain	<hostname>
+```
+
+6. Set the root password
+
+   ```passwd```
+   
 
 #### Boot loader
 
 A boot loader is the first program that runs when a computer start. It is responsible for selecting, loading and transferring control to an operatinf system kernel. After that the kernel initializes the rest of the operating system.(https://wiki.archlinux.org/index.php/GRUB)
+
+
+We are using systemd-boot
+systemd-boot, previously called gummiboot, is a simple UEFI boot manager which executes configured EFI images. The default entry is selected by a configured pattern (glob) or an on-screen menu. It is included with systemd, which is installed on Arch system by default.(https://wiki.archlinux.org/index.php/Systemd-boot)
+
+1. Install the bootloader to our boot partition
+
+   ```bootctl --path=/boot install```
+   
+   > The above command will copy the systemd-boot binary to /boot/EFI/BOOT/BOOTX64.EFI and add systemd-boot itself as the default EFI application (default boot entry) loaded by the EFI Boot Manager.(https://wiki.archlinux.org/index.php/mac#Setup_bootloader)
+   
+2. Install the Microcode for intel (intel-ucode)
+
+   >Processor manufacturers release stability and security updates to the processor microcode (https://wiki.archlinux.org/index.php/Microcode)
+   
+   ```pacman -S  intel-ucode```
+   
+3. Create the Arch Linux boot entry
+
+   ```nano /boot/loader/entries/arch.conf```
+   
+   Enter the configuration taking from the Arch linux (https://wiki.archlinux.org/index.php/Systemd-boot)
+   
+```
+title   Arch Linux
+linux   /vmlinuz-linux
+initrd  /intel-ucode.img
+initrd  /initramfs-linux.img
+options root=LABEL=arch_os rw
+``` 
+
+4. Configure systemd-boot to boot our config
+
+   ```echo "default arch" > /boot/loader/loader.conf```
+   
+5. Finaly reboot our system
+
+   ``èxit```
+   
+   ```reboot```
+   
+   
 
 ---
 References
@@ -319,9 +383,13 @@ References
 
 <a name="ft4">4 - wpa_supplicant</a>: http://w1.fi/wpa_supplicant/
 
-<a name="ft4">5 - cgdisk</a>: https://roy.marples.name/projects/dhcpcd
+<a name="ft5">5 - cgdisk</a>: https://www.rodsbooks.com/gdisk/cgdisk.html
 
-<a name="ft5">5 - swap space </a>: https://www.rodsbooks.com/gdisk/cgdisk.html
+<a name="ft6">6 - cgdisk</a>: https://www.rodsbooks.com/gdisk/cgdisk.html
+
+<a name="ft7">7 - cgdisk</a>: https://www.rodsbooks.com/gdisk/cgdisk.html
+
+<a name="ft8">8 - swap space </a>: https://www.rodsbooks.com/gdisk/cgdisk.html
 
 
 
