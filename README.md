@@ -73,7 +73,7 @@ The first thing you see when you boot is a console, and the first thing that cam
 
     And pipe the config that this commande create to wpa_supplicant. It's also possible to create a config file with wpa_passphrase and passe this file instead of the command
 
-    >wpa_supplicant is a WPA Supplicant for Linux, BSD, Mac OS X, and Windows with support for WPA and WPA2 (IEEE 802.11i / RSN). It is suitable for both desktop/laptop computers and embedded systems. Supplicant is the IEEE 802.1X/WPA component that is used in the client stations. It implements key negotiation with a WPA Authenticator and it controls the roaming and IEEE 802.11 authentication/association of the wlan driver.<sup>[4](#ft4)</sup>
+    >wpa_supplicant is a WPA Supplicant for Linux, BSD, Mac OS X, and Windows with support for WPA and WPA2 (IEEE 802.11i / RSN). It is suitable for both desktop/laptop computers and embedded systems. Supplicant is the IEEE 802.1X/WPA component that is used in the client stations. I implements key negotiation with a WPA Authenticator and it controls the roaming and IEEE 802.11 authentication/association of the wlan driver.<sup>[4](#ft4)</sup>
 
 7. The final step is to start the dhcp demaon that will assign use ip address
 
@@ -86,6 +86,66 @@ The first thing you see when you boot is a console, and the first thing that cam
     ```ping google.com```
 
 
+
+#### Partition
+You can do this before connecting to a network. This section doesn't require any internet.
+
+1. First let's see our current partition
+
+   ````lsblk```
+
+   >List information about all available or the specified block devices.
+
+   I fell like using fdisk give us better information if you want to list all the device.
+   
+   ```fdisk -l```
+
+2. Next we are going to wipe the older partition table and create  a new one.
+   
+   ```gdisk /dev/sda```
+
+   We need to be in expert mode
+
+   ```> x ```
+
+   ```> z ```
+   
+   We use the commande zap to: 'zap (destroy) GPT data structures and exit'
+   After it's done we it enter for the next two question.
+
+3. Let's create our partition
+
+   ```cgdisk /dev/sda```
+
+   >Upon start, cgdisk attempts to identify the partition type in use on the disk. If it finds valid GPT data, cgdisk will use it. If cgdisk finds a valid MBR or BSD disklabel but no GPT data, it will attempt to convert the MBR or disklabel into GPT form. (BSD disklabels are likely to have unusable first and/or final partitions because they overlap with the GPT data structures, though.) Upon exiting with the 'w' option, cgdisk replaces the MBR or disklabel with a GPT. This action is potentially dangerous! Your system may become unbootable, and partition type codes may become corrupted if the disk uses unrecognized type codes. Boot problems are particularly likely if you're multi-booting with any GPT-unaware OS. If you mistakenly launch cgdisk on an MBR disk, you can safely exit the program without making any changes by using the Quit option.<sup>[4](#ft4)</sup>
+
+
+4. Presse any key to continue 
+
+5. create a boot partition
+ 
+   ```[ NEW ]```
+   
+   First sector ... 
+
+   ```[ ENTER ]``` 
+
+   Size Sector: The Arch linux installation recommende 550Mbi for the boot partition
+   
+
+   ```550Mbi [ ENTER ]```
+
+   Selection the type of partition. For the boot we want EFI System. It's possible to list all code by pressing L
+
+   ```EF00```
+
+   Enter new partition name:
+
+   ```boot```
+
+6. Create a swap partition. 
+
+   > Swap space in Linux is used when the amount of physical memory (RAM) is full. If the system needs more memory resources and the RAM is full, inactive pages in memory are moved to the swap spac .<sup>[6](#ft6)</sup>
 
 
 
@@ -100,4 +160,10 @@ References
 
 <a name="ft4">4 - wpa_supplicant</a>: http://w1.fi/wpa_supplicant/
 
-<a name="ft4">4 - wpa_supplicant</a>: https://roy.marples.name/projects/dhcpcd
+<a name="ft4">5 - cgdisk</a>: https://roy.marples.name/projects/dhcpcd
+
+<a name="ft5">5 - swap space </a>: https://www.rodsbooks.com/gdisk/cgdisk.html
+
+
+
+
