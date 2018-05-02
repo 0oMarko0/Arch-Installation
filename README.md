@@ -1,10 +1,8 @@
 ## Table of contents
 
-[1. Create the bootable usb](#Create-the-Bootable-usb)
+[1. Create the bootable usb](#create-the-bootable-usb)
 
-
-
-[2. Connect to a wifi](/NETWORK.md)
+[2. Connect to a wifi](#networking)
 
 [3. Partition the disk](/PARTITION.md)
 
@@ -23,7 +21,7 @@
 
 This week my goal was to install Arch on my old 2012 macbook air. I decide to make a guide to help me really understand what i was doing.
 
-# Create the Bootable usb 
+### Create the Bootable usb 
 The first step was obviously to create a bootables usb key.
 
 1. Download the ISO of Arch. Multiple download link, depending on your country can be found [here](https://www.archlinux.org/download/)
@@ -49,7 +47,7 @@ The first step was obviously to create a bootables usb key.
 3. Once the USB is ready, reboot your mac on the USB.
 
 
-#### Networking
+### Networking
 The first thing you see when you boot is a console, and the first thing that came to my mind was that i need to be connected to internet. So in order to do so i've follow those step from the [wiki](https://wiki.archlinux.org/index.php/Wireless_network_configuration). Here's the summary
 
 1. We must check if we have a drive for our network card. It is possible to list all PCI buses and device with
