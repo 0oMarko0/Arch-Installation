@@ -63,7 +63,7 @@ The first thing you see when you boot is a console, and the first thing that cam
 
 6. Next we are gonna use wpa_supplicant to connect to our Wifi
 
-    ```wpa_supplicant -B -i wpl2s0b1<(wpa_passphrase "MYSSID" "passphrase")```
+    ```wpa_supplicant -B -i wpl2s0b1i -c<(wpa_passphrase "MYSSID" "passphrase")```
 
     if that work correctly you should see a 'Successfully initialized wpa_supplicant'
 
@@ -264,7 +264,13 @@ You can do this before connecting to a network. This section doesn't require any
    ```mount /dev/sda4 /mnt/boot``` 
 
 	   
+#### Installation
 
+In this section we are going to install the [base package](https://www.archlinux.org/groups/x86_64/base/)
+
+1. Run the Arch installation script 
+
+   ```pacstrap /mnt base``` 
 ---
 References
 
