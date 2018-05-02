@@ -6,13 +6,13 @@
 
 [3. Partition the disk](#partition)
 
-[4. Mount a file system](mounting-a-file-system)
+[4. Mount a file system](#mounting-a-file-system)
 
-[5. Arch Installation](installation)
+[5. Arch Installation](#installation)
 
-[6. Configure the system](configure-the-system)
+[6. Configure the system](#configure-the-system)
 
-[7. Boot loader](boot-loader)
+[7. Boot loader](#boot-loader)
 
 ## Summary
 
