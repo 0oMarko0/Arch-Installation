@@ -4,7 +4,7 @@
 
 [2. Connect to a wifi](#networking)
 
-[3. Partition the disk](/PARTITION.md)
+[3. Partition the disk](#partition)
 
 [4. Mount a file system](FILE-SYSTEM.md)
 
