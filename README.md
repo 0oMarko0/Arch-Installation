@@ -365,7 +365,7 @@ systemd-boot, previously called gummiboot, is a simple UEFI boot manager which e
    linux   /vmlinuz-linux
    initrd  /intel-ucode.img
    initrd  /initramfs-linux.img
-   options root=LABEL=arch_os rw
+   options root=/dev/sda3 rw
    ``` 
 
 4. Configure systemd-boot to boot our config
