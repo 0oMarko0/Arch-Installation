@@ -285,7 +285,7 @@ In this section we are going to install the [base package](https://www.archlinux
 
 1. We need to generate the fstab
 
-   ```genfstab -U /mnt >> /mnt/etc/sftab```
+   ```genfstab -U /mnt >> /mnt/etc/fstab```
 
    >The fstab file can be used to define how disk partitions, various other block devices, or remote filesystems should be mounted into the filesystem.<sup>[7](#ft7)</sup>
    
