@@ -126,7 +126,7 @@ You can do this before connecting to a network. This section doesn't require any
    MBR carrier partition to the newer Globally Unique Identifier (GUID) Partition 
    Table (GPT) format, or will load a GUID partition table. When used with the -l
     command-line option, the program displays the current partition table 
-    and then exits. (https://linux.die.net/man/8/gdisk)
+    and then exits.<sup>[5](#ft5)</sup>
 
    We need to be in expert mode with x
 
@@ -166,7 +166,7 @@ You can do this before connecting to a network. This section doesn't require any
 6. Create a swap partition. 
 
    > Swap space in Linux is used when the amount of physical memory (RAM) is full. If the system needs 
-   more memory resources and the RAM is full, inactive pages in memory are moved to the swap spac .<sup>[6](#ft6)</sup>
+   more memory resources and the RAM is full, inactive pages in memory are moved to the swap space .<sup>[6](#ft6)</sup>
   
     Select [ NEW ]
    
@@ -228,8 +228,11 @@ You can do this before connecting to a network. This section doesn't require any
 1. Unmount all mounted file system. 
  
    ```findmnt /dev/sda```
+   
+   or
+   
+   ```mount -l | grep sda```
 
-   > To list all mounted file systems (https://wiki.archlinux.org/index.php/File_systems#List_mounted_file_systems)
 
    ```unmount </dev/sdX>```
 
@@ -284,12 +287,12 @@ In this section we are going to install the [base package](https://www.archlinux
 
    ```genfstab -U /mnt >> /mnt/etc/sftab```
 
-   >The fstab file can be used to define how disk partitions, various other block devices, or remote filesystems should be mounted into the filesystem.(https://wiki.archlinux.org/index.php/Fstab)
+   >The fstab file can be used to define how disk partitions, various other block devices, or remote filesystems should be mounted into the filesystem.<sup>[7](#ft7)</sup>
    
    ```nano /mnt/etc/fstab```
    
    >Make sure that the line of the ext4 partition ends with a “2”, the swap partition’s line ends with a “0”, and the 
- boot partition’s line ends with a “1”. This configures the partition checking on boot.(https://medium.com/@philpl/arch-linux-running-on-my-macbook-2ea525ebefe3?token=Sa7zbfKtIQl2yvlJ)
+ boot partition’s line ends with a “1”. This configures the partition checking on boot.<sup>[8](#ft8)</sup>
 
 2. We need to change root into the new system
 
@@ -335,22 +338,22 @@ In this section we are going to install the [base package](https://www.archlinux
 
 ### Boot loader
 
-A boot loader is the first program that runs when a computer start. It is responsible for selecting, loading and transferring control to an operatinf system kernel. After that the kernel initializes the rest of the operating system.(https://wiki.archlinux.org/index.php/GRUB)
+A boot loader is the first program that runs when a computer start. It is responsible for selecting, loading and transferring control to an operatinf system kernel. After that the kernel initializes the rest of the operating system.<sup>[9](#ft9)</sup>
 
 
 We are using systemd-boot
-systemd-boot, previously called gummiboot, is a simple UEFI boot manager which executes configured EFI images. The default entry is selected by a configured pattern (glob) or an on-screen menu. It is included with systemd, which is installed on Arch system by default.(https://wiki.archlinux.org/index.php/Systemd-boot)
+systemd-boot, previously called gummiboot, is a simple UEFI boot manager which executes configured EFI images. The default entry is selected by a configured pattern (glob) or an on-screen menu. It is included with systemd, which is installed on Arch system by default.<sup>[10](#ft10)</sup>
 
 1. Install the bootloader to our boot partition
 
    ```bootctl --path=/boot install```
 
 
-   >the above command will copy the systemd-boot binary to /boot/EFI/BOOT/BOOTX64.EFI and add systemd-boot itself as the default EFI application (default boot entry) loaded by the EFI Boot Manager.(https://wiki.archlinux.org/index.php/mac#Setup_bootloader)
+   >the above command will copy the systemd-boot binary to /boot/EFI/BOOT/BOOTX64.EFI and add systemd-boot itself as the default EFI application (default boot entry) loaded by the EFI Boot Manager.<sup>[11](#ft11)</sup>
    
 2. Install the Microcode for intel (intel-ucode)
 
-   >Processor manufacturers release stability and security updates to the processor microcode (https://wiki.archlinux.org/index.php/Microcode)
+   >Processor manufacturers release stability and security updates to the processor microcode <sup>[12](#ft12)</sup>
    
    ```pacman -S  intel-ucode```
    
@@ -358,7 +361,7 @@ systemd-boot, previously called gummiboot, is a simple UEFI boot manager which e
 
       ```nano /boot/loader/entries/arch.conf```
    
-   Enter the configuration taking from the Arch linux (https://wiki.archlinux.org/index.php/Systemd-boot)
+   Enter the configuration taking from the [Arch linux](https://wiki.archlinux.org/index.php/Systemd-boot)
    
    ```
    title   Arch Linux
@@ -391,13 +394,20 @@ References
 
 <a name="ft4">4 - wpa_supplicant</a>: http://w1.fi/wpa_supplicant/
 
-<a name="ft5">5 - cgdisk</a>: https://www.rodsbooks.com/gdisk/cgdisk.html
+<a name="ft5">5 - gdisk</a>: https://linux.die.net/man/8/gdisk
 
-<a name="ft6">6 - cgdisk</a>: https://www.rodsbooks.com/gdisk/cgdisk.html
+<a name="ft6">6 - swap space</a>: https://www.centos.org/docs/5/html/5.2/Deployment_Guide/s1-swap-what-is.html
 
-<a name="ft7">7 - cgdisk</a>: https://www.rodsbooks.com/gdisk/cgdisk.html
+<a name="ft7">7 - fstab</a>: https://wiki.archlinux.org/index.php/Fstab
 
-<a name="ft8">8 - swap space </a>: https://www.rodsbooks.com/gdisk/cgdisk.html
+<a name="ft8">8 - configure fstab</a>: https://medium.com/@philpl/arch-linux-running-on-my-macbook-2ea525ebefe3?token=Sa7zbfKtIQl2yvlJ
+
+<a name="ft10">10 - boot loader</a>: https://wiki.archlinux.org/index.php/GRUB
+
+<a name="ft11">11 - bootctl</a>:https://wiki.archlinux.org/index.php/mac#Setup_bootloader
+
+<a name="ft12">12 - microcode</a>: https://wiki.archlinux.org/index.php/Microcode
+
 
 
 
