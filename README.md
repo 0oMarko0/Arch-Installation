@@ -244,11 +244,11 @@ You can do this before connecting to a network. This section doesn't require any
 
    ```mkswap /dev/sda2```
 
-   > Set up a Linux swap area on a device or in a file (man page)
+   > Set up a Linux swap area on a device or in a file
 
    ```swapon /dev/sda2```
 
-   > Swapon is used to specify devices on which paging and swapping are to take place (man page)
+   > Swapon is used to specify devices on which paging and swapping are to take place
  
 
 4. Making our file system for the root. 
