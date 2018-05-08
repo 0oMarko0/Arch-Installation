@@ -382,7 +382,8 @@ systemd-boot, previously called gummiboot, is a simple UEFI boot manager which e
       ```reboot```
    
    
-
+Canadien multi layout
+```sudo localectl --no-convert set-x11-keymap ca pc104 multi```
 ---
 References
 
